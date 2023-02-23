@@ -1,9 +1,12 @@
 
 class Personaje: # Clase Personaje
     #Atributos del Personaje
-    especie = "Humano"
-    nombre = "Leon Scott Kennedy"
-    altura = 1.78
+    #Bob el Constructor
+    def __init__(self, esp, nom, alt): # El constructor siempre lleva el self
+        self.especie = esp
+        self.nombre = nom
+        self.altura = alt #Hey, en JS se ve eso xD
+
 
     #Métodos del Personaje
     def correr(self, status): # Método correr. Siempre lleva el self xd
@@ -19,3 +22,4 @@ class Personaje: # Clase Personaje
         cargador = 5
         cargador = cargador + municiones
         print("Se han recargado " + str(municiones) + " municiones. Ahora el cargador tiene " + str(cargador) + " municiones")
+         
