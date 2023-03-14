@@ -1,9 +1,13 @@
 from tkinter import *
 from tkinter import Tk, messagebox, Button
+
+
 class Caja:
     def __init__(self):
         self.__edad = 18
-    
+        self.__deposito = 0
+        self.__retiro = 0
+
     def accountData(self, cuenta, titular, edad, saldo):
         self.__cuenta = cuenta
         self.__titular = titular
@@ -15,10 +19,11 @@ class Caja:
         else:
             messagebox.showinfo("Cuenta creada", "La cuenta ha sido creada exitosamente con un saldo de: " + str(bal) + " pesos")
             self.accountWindow(bal)
-            
 
-    def accountWindow(self, bal):        
+    def accountWindow(self, bal):
         subwindow = Tk()
+        deposito = DoubleVar()
+        retiro = DoubleVar()
         subwindow.configure(background='#b3e6ff')
         subwindow.title("Manejo de cuenta")
         subwindow.geometry("600x400")
@@ -33,13 +38,16 @@ class Caja:
 
         def consultar():
             messagebox.showinfo("Saldo", "El saldo actual es de: " + str(bal))
-            nose()
 
         def depositar():
             deposito_num = float(deposito.get())
-            messagebox.showinfo("Depósito", "Depósito de " + str(deposito.get()) + " realizado con éxito")
             nonlocal bal
-            bal = bal + deposito_num
+            bal = float(bal) + float(deposito_num)
+            messagebox.showinfo("Depósito", "Depósito de " + str(deposito_num) + " realizado con éxito. Ahora tiene: " + str(bal) + "pejos")
+            Label(subwindow, background='#b3e6ff', text=bal).grid(row=3, column=1)  # Actualizar el valor del Label correspondiente
+            print (deposito_num)
+            print (deposito.get())
+            #print (float((deposito.trace ("w"))))
 
         def retirar():
             nonlocal bal
@@ -53,19 +61,22 @@ class Caja:
                 
         Button(subwindow, text="Consultar saldo", command=consultar).grid(row=4, column=0)
         depLabel = Label(subwindow, background='#b3e6ff', text="Depósito: ").grid(row=5, column=0)
-        deposito = DoubleVar()
-        depEntry = Entry(subwindow, textvariable=deposito).grid(row=5, column=1)
+        depEntry = Entry(subwindow, textvariable=deposito)
+        depEntry.grid(row=5, column=1)
+        #float(deposito.trace("w", depositar))
+        #depEntry.delete(0, END)
+
         Button(subwindow, text="Depositar", command=depositar).grid(row=5, column=2)
         retLabel = Label(subwindow, background='#b3e6ff', text="Retiro: ").grid(row=6, column=0)
-        retiro = DoubleVar()
-        retEntry = Entry(subwindow, textvariable=retiro).grid(row=6, column=1)
+        
+        retEntry = Entry(subwindow, textvariable=retiro)
+        retEntry.grid(row=6, column=1)
+        
         Button(subwindow, text="Retirar", command=retirar).grid(row=6, column=2)
 
-        def nose():
-            print(deposito.get())
-            print(retiro.get())
-            print(bal)
-        subwindow.mainloop()
+        Label(subwindow, background='#b3e6ff', text="Transferencia").grid(row=7, column=0)
+        Button(subwindow, text="Transferir", command=retirar).grid(row=7, column=2)
+        Entry(subwindow).grid(row=7, column=1)
 
 
 
