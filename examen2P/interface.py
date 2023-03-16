@@ -1,5 +1,6 @@
 from Matriculador import *
 from tkinter import *
+from tkinter import messagebox
 import random
 
 matr = Matriculador()
@@ -14,6 +15,8 @@ def setMatricula():
     numrand = StringVar()
     numrand.set(numrand1.get() + numrand2.get())
     matr.matriculaData(nombre.get(),apellido_p.get(),apellido_m.get(),nacimiento.get(),carrera.get(),year.get(),numrand.get())
+
+    messagebox.showinfo("Matrícula", "La matrícula es: " + matr.matricula)
     
 
 root = Tk()
@@ -58,7 +61,8 @@ numrand2 = StringVar()
 numrand2.set(random.randint(0,9))
 
 numrand = StringVar()
-numrand.set(numrand1.get() + numrand2.get()) """
+numrand.set(numrand1.get() + numrand2.get()) 
+#Dejar aquí los randomizadores hace que se haga un constante tras el primer uso"""
 
 genButton = Button(root, text='Generar Matrícula', command=setMatricula).grid(row=7, column=2)
 

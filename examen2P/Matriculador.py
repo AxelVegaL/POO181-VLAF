@@ -17,5 +17,7 @@ class Matriculador:
         self.carrera = carrera
         self.year = year
         self.aleatorio = aleatorio
-        self.matricula = self.nombre[0] + self.apellido_paterno[0] + self.apellido_paterno [1] + self.apellido_materno[0] + self.apellido_materno[1] + str(self.nacimiento)[-2] + str(self.nacimiento)[-1] + self.carrera[0] + self.carrera[1] + self.carrera[2] + str(self.year)[-2] + str(self.year)[-1] + self.aleatorio
-        print(self.matricula)
+        self.matricula = self.nombre[0] + self.apellido_paterno[0] + self.apellido_paterno [1] + self.apellido_materno[0] + self.apellido_materno[1] + str(self.nacimiento)[-2] + str(self.nacimiento)[-1] + str(self.year)[-2] + str(self.year)[-1] + self.carrera[0] + self.carrera[1] + self.carrera[2] + self.aleatorio
+        self.matricula = self.matricula.upper()
+        #print(self.matricula)
+        return self.matricula
