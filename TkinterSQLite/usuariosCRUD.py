@@ -1,6 +1,16 @@
 from tkinter import *
 from tkinter import ttk #importamos ttk para usar NoteBook
 import tkinter as tk
+from controladorBD import * #1. Presentamos los archivos Controlador y Vista
+
+#2. Creamos 1 objeto de la clase controladorBD
+controlador = controladorBD() #Como en las otras prácticas, creamos un objeto de la clase
+
+#3. Función para disparar el botón
+def ejecutaInsert():
+    controlador.guardarUsuario(varNombre.get(), varCor.get(), varCon.get())
+
+
 
 ventana = Tk()
 ventana.title("CRUD de usuarios - Práctica 15")
@@ -31,7 +41,7 @@ varCon = tk.StringVar()
 lblCon = Label(pestana1, text="Contraseña: ").pack()
 txtCon = Entry(pestana1, textvariable=varCon).pack()
 
-btnGuardar = Button(pestana1, text="Guardar Usuario").pack()
+btnGuardar = Button(pestana1, text="Guardar Usuario", command=ejecutaInsert).pack()
 
 
 panel.add(pestana1, text='Formulario de usuarios') #le damos un nombre a la pestaña
