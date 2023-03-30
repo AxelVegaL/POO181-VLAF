@@ -21,7 +21,9 @@ def ejecutaSelectU():
     if (usuario):
         print(cadena)
         #actualizar textEnc
-        textEnc.insert(0, cadena)
+        textEnc.delete("1.0", END)
+        textEnc.insert(END, cadena)
+
 
     else:
         messagebox.showinfo("Error", "No se encontró el usuario")
@@ -74,7 +76,9 @@ txtid=Entry(pestana2, textvariable=varbus).pack() #Entry ID
 btnBuscar=Button(pestana2, text="Buscar", command=ejecutaSelectU).pack() #Botón buscar}
 
 subBus=Label(pestana2, text="Resultado de la busqueda: ", fg='blue', font=("Modern", 18)).pack() #Subtítulo
-textEnc=tk.Text(pestana2, width=52, height=10).pack()
+textEnc = tk.Text(pestana2, width=52, height=10)
+textEnc.pack()
+#Este pequeño malnacido fue el causante de todos mis males en las últimas 2 horas
 
 
 ventana.mainloop()
