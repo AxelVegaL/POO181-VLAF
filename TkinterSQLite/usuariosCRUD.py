@@ -10,6 +10,22 @@ controlador = controladorBD() #Como en las otras prácticas, creamos un objeto d
 def ejecutaInsert():
     controlador.guardarUsuario(varNombre.get(), varCor.get(), varCon.get())
 
+#Aquí hacemos un def para la selección de datos
+def ejecutaSelectU():
+    usuario = controlador.consultarUsuario(varbus.get()) #Aquí se manda el id a la función de la clase controladorBD. Variable Buscar: varbus
+    #Mandando "usuario" ya no se pierde en el limbro el valor de la consulta :D porque así de delicado es esto =(
+    
+    for usu in usuario:
+        cadena = "Id: " + str(usu[0])+ "\n" + " Nombre: " + usu[1]+ "\n" + " Correo: " + usu[2]+ "\n" + " Contraseña: " + str(usu[3])
+    
+    if (usuario):
+        print(cadena)
+        #actualizar textEnc
+        textEnc.insert(0, cadena)
+
+    else:
+        messagebox.showinfo("Error", "No se encontró el usuario")
+
 
 
 ventana = Tk()
@@ -43,10 +59,22 @@ txtCon = Entry(pestana1, textvariable=varCon).pack()
 
 btnGuardar = Button(pestana1, text="Guardar Usuario", command=ejecutaInsert).pack()
 
-
 panel.add(pestana1, text='Formulario de usuarios') #le damos un nombre a la pestaña
 panel.add(pestana2, text='Buscar usuarios')
 panel.add(pestana3, text='Consultar usuarios')
 panel.add(pestana4, text='Actualizar usuarios')
+
+#Pestaña 2. Buscar usuarios
+
+titulo2= Label(pestana2, text="Buscar usuarios", fg = 'green', font = ("Modern",18)).pack()
+
+varbus=tk.StringVar()
+lblid=Label(pestana2, text="Id: ").pack() #Label ID
+txtid=Entry(pestana2, textvariable=varbus).pack() #Entry ID
+btnBuscar=Button(pestana2, text="Buscar", command=ejecutaSelectU).pack() #Botón buscar}
+
+subBus=Label(pestana2, text="Resultado de la busqueda: ", fg='blue', font=("Modern", 18)).pack() #Subtítulo
+textEnc=tk.Text(pestana2, width=52, height=10).pack()
+
 
 ventana.mainloop()

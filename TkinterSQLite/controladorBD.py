@@ -50,3 +50,26 @@ class controladorBD:
 
         #enviamos la contraseña encriptada
         return conHa
+    
+    #Método para buscar usuarios
+    def consultarUsuario(self,id):
+        #1. Preparamos la conexión
+        conx = self.conexionBD() #llamamos al método de conexión que ya estaba hecho ;D
+
+        #2. Verificar si ID no está vacío
+        if (id == ""): #También se puede validar datos numéricos con isdigit()
+            messagebox.showwarning("Campos vacíos", "Cuidaito Wasaoski, falta llenar campos")
+            conx.close() #cerramos la conexión de forma preventiva °^°
+        else:
+            try:
+                #3. Preparamos el cursor, datos y query
+                cursor = conx.cursor()
+                selectQry = "SELECT * FROM TBRegistrados WHERE id =" + id	
+                #4. Ejecutamos el select y cerramos la conexión
+                cursor.execute(selectQry) #ejecutamos la consulta select mandando a llamar selectQry
+                rsUsuario = cursor.fetchall() #fetchall() regresa todos los registros de la consulta
+                conx.close() #cerramos la conexión SIEMPRE como buenos programadores :D
+                return rsUsuario #regresamos el registro
+
+            except sqlite3.OperationalError:
+                print ("Error al conectar a la base de datos")
