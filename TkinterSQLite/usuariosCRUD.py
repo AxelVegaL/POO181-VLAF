@@ -80,5 +80,21 @@ textEnc = tk.Text(pestana2, width=52, height=10)
 textEnc.pack()
 #Este pequeño malnacido fue el causante de todos mis males en las últimas 2 horas
 
+#Pestaña 3. Consultar usuarios
+titulo3= Label(pestana3, text="Consultar usuarios:", fg = 'red', font = ("Modern",18))
+titulo3.pack()
+
+tabla = ttk.Treeview(pestana3, columns=('ID', 'NOMBRE', 'CORREO', 'CONTRASEÑA'), show='headings', height=10)
+tabla.pack()
+
+
+
+
+
+#Pestaña 4. Actualizar usuarios
+titulo4= Label(pestana4, text="Actualizar usuarios", fg = 'orange', font = ("Modern",18)).pack()
+
+
+
 
 ventana.mainloop()
