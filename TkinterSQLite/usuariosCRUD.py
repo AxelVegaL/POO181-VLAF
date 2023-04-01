@@ -28,11 +28,20 @@ def ejecutaSelectU():
     else:
         messagebox.showinfo("Error", "No se encontró el usuario")
 
+def allSelect():
+    #limpiar el TreeView
+    tabla.delete(*tabla.get_children())
+    usuarios = controlador.consultarTodosUsuarios()
+    for usu in usuarios:
+        cadena = "Id: " + str(usu[0])+ "\n" + " Nombre: " + usu[1]+ "\n" + " Correo: " + usu[2]+ "\n" + " Contraseña: " + str(usu[3])
+        print(cadena)
+        #colocar en el TreeView los datos de la consulta
+        tabla.insert('',0, values=(usu[0],usu[1], usu[2], usu[3]))
 
 
 ventana = Tk()
 ventana.title("CRUD de usuarios - Práctica 15")
-ventana.geometry("600x400")
+ventana.geometry("1024x400")
 #ventana.configure(background='#b3e6ff')
 
 panel = ttk.Notebook(ventana) #creamos el panel de pestañas
@@ -84,11 +93,14 @@ textEnc.pack()
 titulo3= Label(pestana3, text="Consultar usuarios:", fg = 'red', font = ("Modern",18))
 titulo3.pack()
 
-tabla = ttk.Treeview(pestana3, columns=('ID', 'NOMBRE', 'CORREO', 'CONTRASEÑA'), show='headings', height=10)
+tabla = ttk.Treeview(pestana3, columns=('#1', '#2', '#3', '#4'), show='headings', height=10)
+tabla.heading('#1', text='Id')
+tabla.heading('#2', text='Nombre')
+tabla.heading('#3', text='Correo')
+tabla.heading('#4', text='Contraseña')
 tabla.pack()
 
-
-
+botonconsulta = Button(pestana3, text="Consultar", command=allSelect).pack()
 
 
 #Pestaña 4. Actualizar usuarios

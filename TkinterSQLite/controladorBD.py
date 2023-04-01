@@ -73,3 +73,17 @@ class controladorBD:
 
             except sqlite3.OperationalError:
                 print ("Error al conectar a la base de datos")
+    
+    #Método para consultar a TODOS los usuarios en la BD
+    def consultarTodosUsuarios(self):
+        #1. Preparamos la conexión
+        conx = self.conexionBD()
+
+        #2. Preparamos el cursor, datos y query
+        cursor = conx.cursor()
+        selectQry = "SELECT * FROM TBRegistrados"
+        #3. Ejecutamos el select y cerramos la conexión
+        cursor.execute(selectQry)
+        allUsuarios = cursor.fetchall()
+        conx.close()
+        return allUsuarios
