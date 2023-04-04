@@ -20,7 +20,6 @@ class controladorBD:
 
     #Método para guardar usuarios
     def guardarUsuario(self, nom, cor, con): #recibe los datos del usuario
-
         #1. Conectar a la base de datos
         conx = self.conexionBD() #llamamos al método de conexión
         #2. Validar que no hayan campos vacíos
@@ -79,11 +78,76 @@ class controladorBD:
         #1. Preparamos la conexión
         conx = self.conexionBD()
 
+        try:
         #2. Preparamos el cursor, datos y query
-        cursor = conx.cursor()
-        selectQry = "SELECT * FROM TBRegistrados"
-        #3. Ejecutamos el select y cerramos la conexión
-        cursor.execute(selectQry)
-        allUsuarios = cursor.fetchall()
-        conx.close()
-        return allUsuarios
+            cursor = conx.cursor()
+            selectQry = "SELECT * FROM TBRegistrados"
+            #3. Ejecutamos el select y cerramos la conexión
+            cursor.execute(selectQry)
+            allUsuarios = cursor.fetchall()
+            conx.close()
+            return allUsuarios
+        
+        except sqlite3.OperationalError:
+                print ("Error al consultar la BD")
+                messagebox.showerror("Error", "Error al consultar la BD")
+
+    #Método para actualizar usuarios
+    def actualizarUsuario(self, id, nom, cor, con):
+        #1. Preparamos la conexión
+        conx = self.conexionBD()
+
+        #2. Validar que no hayan campos vacíos
+        if (id == "" or nom == "" or cor == "" or con == ""):
+            messagebox.showwarning("Campos vacíos", "Cuidaito Wasaoski, falta llenar campos")
+        else:
+            Validacion = messagebox.askyesno("Confirmación", "¿Estás seguro de actualizar el usuario con el ID: " + id + " ("+nom+")?")
+            #Validación es una variable booleana que nos regresa el resultado de la pregunta
+            #Sin ella, pos no hay dónde guardar el resultado de la pregunta
+            if Validacion:
+                try:#3. Preparamos el cursor, datos y query
+                    cursor = conx.cursor()
+                    conH = self.encriptarCon(con)
+                    datos = (nom, cor, conH, id)
+                    #qrUpdate = ("UPDATE TBRegistrados SET nombre = "+ nom +", correo = "+ cor +", contra = "+ con +" WHERE id = "+ id)
+                    #Por mucho que duela, hay que usar los signos de interrogación para evitar errores con SQL
+                    #I know, una R de Veigar Feedeado hace menos daño que esto
+                    qrUpdate = "UPDATE TBRegistrados SET nombre = ?, correo = ?, contra = ? WHERE id = ?"
+                    #4. Ejecutamos el update y cerramos la conexión
+                    cursor.execute(qrUpdate, datos)
+                    conx.commit()
+                    conx.close()
+                    messagebox.showinfo("Actualización exitosa", "Usuario actualizado con éxito")
+                except sqlite3.OperationalError:
+                    messagebox.showerror("Error", "Error al intentar actualizar")
+                    print ("Error al intentar actualizar")
+            else:
+                conx.close()
+                messagebox.showinfo("Actualización cancelada", "No se actualizó el usuario")
+    
+    #Método para eliminar usuarios
+    def eliminarUsuario(self, id):
+        #1. Preparamos la conexión
+        conx = self.conexionBD()
+
+        #2. Validar que no hayan campos vacíos
+        if (id == ""):
+            messagebox.showwarning("Campos vacíos", "Por favor, es sólo un campo, llénalo por favor")
+        else:
+            Validacion = messagebox.askyesno("Confirmación", "¿Estás seguro de eliminar el usuario con el ID: " + id + "?")
+            if Validacion:
+                try:
+                    #3. Preparamos el cursor, datos y query
+                    cursor = conx.cursor()
+                    qrDelete = "DELETE FROM TBRegistrados WHERE id = " + id
+                    #4. Ejecutamos el delete y cerramos la conexión
+                    cursor.execute(qrDelete)
+                    conx.commit()
+                    conx.close()
+                    messagebox.showinfo("Eliminación exitosa", "Usuario eliminado con éxito")
+                except sqlite3.OperationalError:
+                    messagebox.showerror("Error", "Error al intentar eliminar")
+                    print ("Error al intentar eliminar")
+            else:
+                conx.close()
+                messagebox.showinfo("Eliminación cancelada", "No se eliminó el usuario")
