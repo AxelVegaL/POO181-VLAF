@@ -138,13 +138,20 @@ class controladorBD:
             if Validacion:
                 try:
                     #3. Preparamos el cursor, datos y query
-                    cursor = conx.cursor()
-                    qrDelete = "DELETE FROM TBRegistrados WHERE id = " + id
-                    #4. Ejecutamos el delete y cerramos la conexión
-                    cursor.execute(qrDelete)
-                    conx.commit()
-                    conx.close()
-                    messagebox.showinfo("Eliminación exitosa", "Usuario eliminado con éxito")
+                    #3.1 Verificamos si el usuario existe en la BD
+                    rsUsuario = self.consultarUsuario(id)
+                    if (rsUsuario == []):
+                        messagebox.showwarning("Usuario no encontrado", "El usuario con el ID: " + id + " no existe")
+                        return
+                    else:
+                        print ("Usuario encontrado")
+                        cursor = conx.cursor()
+                        qrDelete = "DELETE FROM TBRegistrados WHERE id = " + id
+                        #4. Ejecutamos el delete y cerramos la conexión
+                        cursor.execute(qrDelete)
+                        conx.commit()
+                        conx.close()
+                        messagebox.showinfo("Eliminación exitosa", "Usuario eliminado con éxito")
                 except sqlite3.OperationalError:
                     messagebox.showerror("Error", "Error al intentar eliminar")
                     print ("Error al intentar eliminar")
