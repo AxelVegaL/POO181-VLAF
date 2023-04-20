@@ -10,7 +10,7 @@ def ejecutaInsert():
     controlador.guardarExportacion(varTransporteNew.get(), varAduanaNew.get())
 
 def ejecutaSelectExpo():
-    exportacion = controlador.consultarExportacion(varbus.get()) #Aquí se manda el id a la función de la clase controladorBD. Variable Buscar: varbus
+    exportacion = controlador.consultarExportacion(varbus.get())
 
     for expo in exportacion:
         cadena = "Id: " + str(expo[0])+ "\n" + " Transporte: " + str(expo[1])+ "\n" + " Aduana: " + expo[2]

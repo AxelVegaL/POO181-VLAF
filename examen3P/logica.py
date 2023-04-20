@@ -49,9 +49,10 @@ class logica:
             try:
                 #3. Preparamos Cursor, Datos, QuerySQL
                 cursor = conx.cursor()
-                qrSelect = "SELECT * FROM TBPedimentos WHERE Aduana = ?"
+                #Buscamos por la columna Aduana, donde un string coincida con el string que se ingresa
+                qrSelect = "SELECT * FROM TBPedimentos WHERE Aduana LIKE ?"
                 #4. Ejecutamos Select y cerramos la conexión
-                cursor.execute(qrSelect, adu)
+                cursor.execute(qrSelect, ('%' + adu + '%',))
                 rsExport = cursor.fetchall()
                 conx.close()
                 return rsExport
