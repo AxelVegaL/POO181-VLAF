@@ -10,7 +10,7 @@ def ejecutaInsert():
     controlador.guardarExportacion(varTransporteNew.get(), varAduanaNew.get())
 
 def ejecutaSelectExpo():
-    controlador.consultarExportacion(varbus.get()) #Aquí se manda el id a la función de la clase controladorBD. Variable Buscar: varbus
+    exportacion = controlador.consultarExportacion(varbus.get()) #Aquí se manda el id a la función de la clase controladorBD. Variable Buscar: varbus
 
     for expo in exportacion:
         cadena = "Id: " + str(expo[0])+ "\n" + " Transporte: " + expo[1]+ "\n" + " Aduana: " + expo[2]
@@ -90,6 +90,11 @@ txtbus.grid(column=1, row=0)
 #Botón
 btnBuscar = Button(pestana2, text="Buscar", command=ejecutaSelectExpo)
 btnBuscar.grid(column=1, row=1)
+
+#Resultado de la búsqueda
+subBus=Label(pestana2, text="Resultado de la busqueda: ", fg='blue', font=("Modern", 18)).grid(column=0, row=2)
+textEnc = tk.Text(pestana2, width=52, height=10)
+textEnc.grid(column=0, row=3)
 
 #Pestaña 3
 #Botón

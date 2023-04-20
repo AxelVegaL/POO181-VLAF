@@ -49,12 +49,12 @@ class logica:
             try:
                 #3. Preparamos Cursor, Datos, QuerySQL
                 cursor = conx.cursor()
-                qrSelect = "SELECT * FROM TBPedimentos WHERE id = ?"
+                qrSelect = "SELECT * FROM TBPedimentos WHERE IDExpo = ?"
                 #4. Ejecutamos Select y cerramos la conexión
-                cursor.execute(qrSelect)
-                registro = cursor.fetchone()
+                cursor.execute(qrSelect, id)
+                rsExport = cursor.fetchall()
                 conx.close()
-                return registro
+                return rsExport
             except sqlite3.OperationalError:
                 messagebox.showwarning("Error", "No se encontró el registro")
                 conx.close()
@@ -71,7 +71,7 @@ class logica:
             cursor.execute(qrSelect)
             registros = cursor.fetchall()
             conx.close()
-            return allRegistros
+            return registros
         except sqlite3.OperationalError:
             messagebox.showwarning("Error", "No se encontró el registro")
             conx.close()
@@ -96,9 +96,9 @@ class logica:
                     else:
                         #3. Preparamos Cursor, Datos, QuerySQL
                         cursor = conx.cursor()
-                        qrDelete = "DELETE FROM TBPedimentos WHERE id = ?"
+                        qrDelete = "DELETE FROM TBPedimentos WHERE IDExpo = ?"
                         #4. Ejecutamos Delete y cerramos la conexión
-                        cursor.execute(qrDelete)
+                        cursor.execute(qrDelete, id)
                         conx.commit()
                         conx.close()
                         messagebox.showinfo("Eliminación exitosa", "Exportación eliminada con éxito")
