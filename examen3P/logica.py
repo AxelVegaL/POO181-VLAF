@@ -37,21 +37,21 @@ class logica:
             messagebox.showinfo("Registro exitoso", "Exportación registrada con éxito")
 
     #Método para buscar Exportaciones
-    def consultarExportacion(self,id):
+    def consultarExportacion(self,adu):
         #1. Preparamos la conexión
         conx = self.conexionBD()
 
         #2. Verificar si ID no está vacío
-        if (id == ""): #También se puede validar datos numéricos con isdigit()
+        if (adu == ""): #También se puede validar datos numéricos con isdigit()
             messagebox.showwarning("Campos vacíos", "Procura incluir todos los datos")
             conx.close()
         else:
             try:
                 #3. Preparamos Cursor, Datos, QuerySQL
                 cursor = conx.cursor()
-                qrSelect = "SELECT * FROM TBPedimentos WHERE IDExpo = ?"
+                qrSelect = "SELECT * FROM TBPedimentos WHERE Aduana = ?"
                 #4. Ejecutamos Select y cerramos la conexión
-                cursor.execute(qrSelect, id)
+                cursor.execute(qrSelect, adu)
                 rsExport = cursor.fetchall()
                 conx.close()
                 return rsExport
