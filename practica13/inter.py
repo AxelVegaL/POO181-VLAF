@@ -6,7 +6,7 @@ passw = passwords() #Este va de a fuerzas para usar la clase passwords.py
 
 def setPassword():
     passw.createPass(length.get(),mayus.get(),special.get())
-    #Los .get() son para obtener el valor de las variables que se usan en la función createPass() de la clase passwords.py
+  #Los .get() son para obtener el valor de las variables que se usan en la función createPass() de la clase passwords.py
     #este def es el que se conecta a la class passwords.py, es decir, es el QROBús de la clase. Porque falla, pero luego sí da :D
 
 

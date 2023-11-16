@@ -7,6 +7,11 @@ matr = Matriculador()
 
 
 def setMatricula():
+    """
+    Esta función se ejecuta cuando se hace clic en el botón 'Generar Matrícula'.
+    Obtiene los datos ingresados por el usuario y genera una matrícula utilizando el objeto 'matr'.
+    Muestra la matrícula generada en un cuadro de diálogo.
+    """
     numrand1 = StringVar()
     numrand1.set(random.randint(0,9))
     numrand2 = StringVar()
